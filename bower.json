@@ -1,0 +1,24 @@
+{
+  "name": "droidconro",
+  "homepage": "https://github.com/ukmadlz/droidconro",
+  "authors": [
+    "Mike Elsmore<mike.elsmore@uk.ibm.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "Apache-2.0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pouchdb": "^5.2.1",
+    "jquery": "^2.2.0",
+    "bootstrap": "^3.3.6"
+  }
+}
