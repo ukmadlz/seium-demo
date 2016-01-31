@@ -99,7 +99,13 @@ $(document).ready(function() {
     var html = '<div class=\"row\" id=\"' + data.doc._id + '\" data-timestamp=\"' + dateObj.getTime() + '\">';
     html += '<p><strong>' + santise(data.doc.user) + ': ' + dateObj.toString() + '</strong></p>';
     html += marked(data.doc.message);
-    html += '<div class=\"\" ><a class=\"btn btn-default open\" ><i class=\"fa fa-search-plus\" ></i></a>';
+    html += '<div class=\"\" >';
+
+    if ($('#user').val() === data.doc.user) {
+      html += '<a class=\"btn btn-default delete\" ><i class=\"fa fa-trash\" ></i></a>';
+    }
+
+    html += '<a class=\"btn btn-default open\" ><i class=\"fa fa-search-plus\" ></i></a>';
     html += '<pre class=\"hide\" ><code>';
     html += JSON.stringify(data.doc.insights, null, ' ');
     html += '</code></pre>';
@@ -111,10 +117,7 @@ $(document).ready(function() {
       $('#' + data.doc._id).html(html);
     }
 
-    // View the extra data
-    $('.open').on('click', function() {
-      $(this).parent().children('pre').removeClass('hide');
-    });
+    applyEvents();
 
   };
 
@@ -137,10 +140,32 @@ $(document).ready(function() {
     $.each(arr, function() {
       ul.append(this);
     });
+
+    applyEvents();
   };
 
   var santise = function(str) {
-    return str.replace(/(<([^>]+)>)/ig,"")
+    return str.replace(/(<([^>]+)>)/ig, '');
   };
+
+  var applyEvents = function() {
+
+    // Delete Message
+    $('.delete').on('click', function() {
+      db.get($(this).parent().parent().attr('id'), function(err, doc) {
+        if (err) { return console.log(err); }
+
+        db.remove(doc, function(err, response) {
+          if (err) { return console.log(err); }
+        });
+      });
+    });
+
+    // View the extra data
+    $('.open').on('click', function() {
+      $(this).parent().children('pre').removeClass('hide');
+    });
+
+  }
 
 });
