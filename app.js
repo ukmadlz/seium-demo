@@ -58,6 +58,9 @@ $(document).ready(function() {
       retry: true,
     });
 
+    // Remove the spinner
+    $('#messageOutput #spinner').remove();
+
     // Save new doc
     $('#chat').on('submit', function(e) {
 
