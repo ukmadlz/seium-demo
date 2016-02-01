@@ -11,7 +11,7 @@ $(document).ready(function() {
 
   // Get details from lcoalStorage
   var getLocalUrl = function() {
-    if (typeof Storage === 'function') {
+    if (typeof Storage !== 'undefined') {
       var url = localStorage.getItem('url');
       if (typeof url !== 'string') {
         var url = getRemoteUrl();
