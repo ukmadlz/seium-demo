@@ -77,6 +77,7 @@ $(document).ready(function() {
           console.log(err);
         } else {
           $('#message').val('');
+          $('#user').attr('disabled', 'disabled');
         }
       });
 
