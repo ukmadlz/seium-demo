@@ -70,19 +70,22 @@ $(document).ready(function() {
       };
 
       db.post(doc, function(err, body) {
-        if (err) console.log(err);
-        console.log(body);
+        if (err) {
+          console.log(err);
+        } else {
+          $('#message').val('');
+        }
       });
 
       return false;
     });
 
     // Display all IM's
-    db.allDocs({include_docs: true},function(err, resp){
+    db.allDocs({ include_docs: true }, function(err, resp) {
       for (var i = 0; i < resp.rows.length; i++) {
         var data = resp.rows[i];
         addMention(data);
-        if(i==resp.rows.length-2) {
+        if (i == resp.rows.length - 2) {
           sortMessage();
         }
       }
@@ -169,10 +172,17 @@ $(document).ready(function() {
       // Delete Message
       $('.delete').on('click', function() {
         db.get($(this).parent().parent().attr('id'), function(err, doc) {
-          if (err) { return console.log(err); }
+          if (err) {
+            return console.log(err);
+          }
 
           db.remove(doc, function(err, response) {
-            if (err) { return console.log(err); }
+            if (err) {
+              addAlerts('warning', 'Unable to delete message, please try again.');
+              return console.log(err);
+            } else {
+              addAlerts('success', 'Message successfully deleted.');
+            }
           });
         });
       });
@@ -185,6 +195,15 @@ $(document).ready(function() {
     };
 
   });
+
+  // Deal with alerts
+  var addAlerts = function(alert, message) {
+    var html = '<div class=\"alert alert-' + alert + ' alert-dismissible\" role=\"alert\">';
+    html += '<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>';
+    html += '<strong>Warning!</strong> ' + message;
+    html += '</div>';
+    $('#alerts').append(html);
+  };
 
   // Load credentials
   preloadCreds();
