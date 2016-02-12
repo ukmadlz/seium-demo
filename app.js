@@ -48,7 +48,7 @@ $(document).ready(function() {
 
     // Database
     var dbConfig = getCredentials();
-
+    console.log(dbConfig);
     // Local Pouch
     var db = PouchDB(dbConfig.local);
 
