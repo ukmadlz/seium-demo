@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "argsarray": "0.0.1",
-    "debug": "2.2.0",
+    "debug": "2.6.9",
     "double-ended-queue": "2.0.0-0",
     "es3ify": "0.2.0",
     "fruitdown": "1.0.1",
